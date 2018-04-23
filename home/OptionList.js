@@ -33,9 +33,12 @@ function ChangeSelectList(countrylevel) {
                     option = new Option(results[i].City, results[i].City);
                     cityList.add(option);
                     $('.Menu').hide();
+                    document.getElementById("myListCity").disabled = false;
+                    document.getElementById("myListCity").style.backgroundColor = "white";
                     if(countrylevel === "All Layer"){
-                        alert(countrylevel);
                         $('.Menu').show();
+                        document.getElementById("myListCity").disabled = true;
+                        document.getElementById("myListCity").style.backgroundColor = "lightgray";
                      }
                 }
             }
@@ -60,8 +63,6 @@ function ChangeSelectList(countrylevel) {
             console.log(msg);
         }
     });
-    document.getElementById("myListCity").disabled = false;
-
 }
 
 function ChangeLayerList(citylevel) {
