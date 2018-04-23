@@ -13,6 +13,390 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script data-main="Main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var parentmenu = document.getElementById("accordion");
+
+            var firstlayers = [];
+            var clean = [];
+            var secondlayer = [];
+            var clean2 = [];
+            var thirdlayer = [];
+            var clean3 = [];
+            var layername = [];
+            var clean4 = [];
+
+            $.ajax({
+                type: "GET",
+                url: "http://10.11.4.97:9090/firstlayer",
+                dataType: "json",
+                success: function (res) {
+                    console.log("first layer");
+                    console.log(res);
+                    $.each(res, function (index, value) {
+                        console.log(value.FirstLayer);
+                        if ($.inArray(value.FirstLayer, firstlayers) == -1) {
+                            firstlayers.push(value.FirstLayer);
+                            clean.push(value);
+                            console.log(clean);
+                        }
+                    });
+
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    alert(msg);
+                    console.log(msg);
+
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "http://10.11.4.97:9088/secondlayer",
+                dataType: "json",
+                success: function (res) {
+
+                    console.log("second layer");
+
+                    $.each(res, function (index, value) {
+                        if ($.inArray(value.SecondLayer, secondlayer) == -1) {
+                            secondlayer.push(value.SecondLayer);
+                            clean2.push(value);
+                        }
+                    });
+
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    alert(msg);
+                    console.log("s" + msg);
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "http://10.11.4.97:9088/thirdlayer",
+                dataType: "json",
+                success: function (res) {
+                    console.log("third layer");
+
+                    $.each(res, function (index, value) {
+                        if ($.inArray(value.ThirdLayer, thirdlayer) == -1) {
+                            thirdlayer.push(value.ThirdLayer);
+                            clean3.push(value);
+                        }
+                    });
+
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    alert(msg);
+                    console.log("t" + msg);
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "http://10.11.4.97:9088/layername",
+                dataType: "json",
+                success: function (res) {
+                    console.log("layername");
+
+
+                    $.each(res, function (index, value) {
+                        if ($.inArray(value.LayerName, layername) == -1) {
+                            layername.push(value.LayerName);
+                            clean4.push(value);
+                        }
+                    });
+
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    alert(msg);
+                    console.log("sds" + msg)
+
+                }
+            });
+
+
+            $.ajax({
+                type: "GET",
+                url: "http://10.11.4.97:9088/createlayer",
+                dataType: "json",
+                success: function (res) {
+
+
+                    console.log("first layer");
+                    // $.each(res, function(index, value) {
+                    //     console.log(index);
+                    //     if($.inArray(value.FirstLayer, firstlayers) == -1)
+                    //     {
+                    //         firstlayers.push(value.FirstLayer);
+                    //         clean.push(value);
+                    //     }
+                    // });
+                    //
+                    // $.each(res, function(index, value) {
+                    //     if($.inArray(value.SecondLayer, secondelayer) == -1)
+                    //     {
+                    //         secondelayer.push(value.SecondLayer);
+                    //         clean2.push(value);
+                    //     }
+                    // });
+                    // $.each(res, function(index, value) {
+                    //     if($.inArray(value.ThirdLayer, thirdlayer) == -1)
+                    //     {
+                    //         thirdlayer.push(value.ThirdLayer);
+                    //         clean3.push(value);
+                    //     }
+                    // });
+                    // $.each(res, function(index, value) {
+                    //     if($.inArray(value.LayerName, layername) == -1)
+                    //     {
+                    //         layername.push(value.LayerName);
+                    //         clean4.push(value);
+                    //     }
+                    // });
+                    console.log(clean);
+                    console.log(clean2);
+                    console.log(clean3);
+                    console.log(clean4);
+                    console.log(firstlayers);
+                    console.log(secondlayer);
+                    console.log(thirdlayer);
+                    console.log(layername);
+
+
+                    $.each(res, function (index, value) {
+
+                        if ($.inArray(value[index] = firstlayers[index])) {
+                            var paneldefault1 = document.createElement("div");
+                            paneldefault1.className = "panel panel-default";
+                            paneldefault1.id = "exam";
+                            var panelheading1 = document.createElement("div");
+                            panelheading1.className = "panel-heading";
+                            var paneltitle1 = document.createElement("h4");
+                            paneltitle1.className = "panel-title";
+                            var collapsed1 = document.createElement("a");
+                            collapsed1.className = "collapsed";
+                            collapsed1.setAttribute("data-toggle", "collapse");
+                            collapsed1.setAttribute("data-parent", "#nested1");
+                            collapsed1.href = "#collapseOne";
+                            var firstlayername = document.createTextNode(clean[index].FirstLayer);
+                            collapsed1.appendChild(firstlayername);
+                            paneltitle1.appendChild(collapsed1);
+                            panelheading1.appendChild(paneltitle1);
+                            paneldefault1.appendChild(panelheading1);///create layer name for first layer ....
+                            parentmenu.appendChild(paneldefault1);
+                        } else {
+                            console.log("sssssss");
+                        }
+                        if ($.inArray(clean[index] = clean2[index])) {
+                            var collapseone = document.createElement("div");//secondlayer
+                            collapseone.className = "panel-collapse collapse";
+                            collapseone.id = "collapseOne";
+                            var panelbody1 = document.createElement("div");
+                            panelbody1.className = "panel-body";
+                            var panelgroup1 = document.createElement("div");
+                            panelgroup1.id = "nested1";
+                            panelgroup1.className = "panel-group";
+                            var paneldefault2 = document.createElement("div");
+                            paneldefault2.className = "panel panel-default";
+                            var panelheading2 = document.createElement("div");
+                            panelheading2.className = "panel-heading";
+                            var paneltitle2 = document.createElement("h4");
+                            paneltitle2.className = "panel-title";
+                            var collapsed2 = document.createElement("a");
+                            collapsed2.className = "collapsed";
+                            collapsed2.setAttribute("data-toggle", "collapse");
+                            collapsed2.setAttribute("data-parent", "#nested1");
+                            collapsed2.href = "#nested1-collapseOne";
+                            var secondlayername = document.createTextNode(clean2[index].SecondLayer);
+                            var panelbody2 = document.createElement("div");
+                            panelbody2.className = "panel-body";
+                            collapseone.appendChild(panelbody1);
+                            panelbody1.appendChild(panelgroup1);
+                            panelgroup1.appendChild(paneldefault2);
+                            paneldefault2.appendChild(panelheading2);
+                            panelheading2.appendChild(paneltitle2);
+                            collapsed2.appendChild(secondlayername);
+                            paneltitle2.appendChild(collapsed2);
+                            collapsed2.appendChild(panelbody2);
+                            paneldefault1.appendChild(collapseone);
+                            console.log(clean2[index].SecondLayer);
+                        }
+                    });
+
+
+                    // for(var a = 0; a < clean.length; a++) {
+                    //     var paneldefault1 = document.createElement("div");
+                    //     paneldefault1.className = "panel panel-default";
+                    //     paneldefault1.id = "exam";
+                    //     var panelheading1 = document.createElement("div");
+                    //     panelheading1.className = "panel-heading";
+                    //     var paneltitle1 = document.createElement("h4");
+                    //     paneltitle1.className = "panel-title";
+                    //     var collapsed1 = document.createElement("a");
+                    //     collapsed1.className = "collapsed";
+                    //     collapsed1.setAttribute("data-toggle", "collapse");
+                    //     collapsed1.setAttribute("data-parent", "#nested1");
+                    //     collapsed1.href = "#collapseOne";
+                    //     var firstlayername = document.createTextNode(clean[a].FirstLayer);
+                    //     collapsed1.appendChild(firstlayername);
+                    //     paneltitle1.appendChild(collapsed1);
+                    //     panelheading1.appendChild(paneltitle1);
+                    //     paneldefault1.appendChild(panelheading1);///create layer name for first layer ....
+                    //     parentmenu.appendChild(paneldefault1); //add first layer to main menu.
+                    //
+                    //     for(var b = 0; b < clean.length; b++) {
+                    //         var collapseone = document.createElement("div");//secondlayer
+                    //         collapseone.className = "panel-collapse collapse";
+                    //         collapseone.id = "collapseOne";
+                    //         var panelbody1 = document.createElement("div");
+                    //         panelbody1.className = "panel-body";
+                    //         var panelgroup1 = document.createElement("div");
+                    //         panelgroup1.id = "nested1";
+                    //         panelgroup1.className= "panel-group";
+                    //         var paneldefault2 = document.createElement("div");
+                    //         paneldefault2.className = "panel panel-default";
+                    //         var panelheading2 = document.createElement("div");
+                    //         panelheading2.className = "panel-heading";
+                    //         var paneltitle2 = document.createElement("h4");
+                    //         paneltitle2.className = "panel-title";
+                    //         var collapsed2 = document.createElement("a");
+                    //         collapsed2.className = "collapsed";
+                    //         collapsed2.setAttribute("data-toggle", "collapse");
+                    //         collapsed2.setAttribute("data-parent", "#nested1");
+                    //         collapsed2.href = "#nested1-collapseOne";
+                    //         var secondlayername = document.createTextNode(clean2[b].SecondLayer);
+                    //         var panelbody2 = document.createElement("div");
+                    //         panelbody2.className = "panel-body";
+                    //         collapseone.appendChild(panelbody1);
+                    //         panelbody1.appendChild(panelgroup1);
+                    //         panelgroup1.appendChild(paneldefault2);
+                    //         paneldefault2.appendChild(panelheading2);
+                    //         panelheading2.appendChild(paneltitle2);
+                    //         collapsed2.appendChild(secondlayername);
+                    //         paneltitle2.appendChild(collapsed2);
+                    //         collapsed2.appendChild(panelbody2);
+                    //         paneldefault1.appendChild(collapseone);
+                    //
+                    //         for(var c = 0; c < clean4.length; c++) {
+                    //             var checkboxdiv = document.createElement("div");
+                    //             var checkboxh5 = document.createElement("h5");
+                    //             var checkboxa = document.createElement("a");
+                    //             var checkaboxat = document.createTextNode(clean3[c].ThirdLayer);
+                    //             var checkboxlabel = document.createElement("label");
+                    //             checkboxlabel.className = "switch right";
+                    //             var checkboxinput = document.createElement("input");
+                    //             checkboxinput.type = "checkbox";
+                    //             checkboxinput.setAttribute("value", clean4[c].LayerName);
+                    //             var checkboxspan = document.createElement("span");
+                    //             checkboxspan.className = "slider round";
+                    //             checkboxdiv.appendChild(checkboxh5);
+                    //             checkboxa.appendChild(checkaboxat);
+                    //             checkboxh5.appendChild(checkboxa);
+                    //             checkboxh5.appendChild(checkboxlabel);
+                    //             checkboxlabel.appendChild(checkboxinput);
+                    //             checkboxlabel.appendChild(checkboxspan);
+                    //             panelbody2.appendChild(checkboxdiv);
+                    //
+                    //
+                    //
+                    //
+                    //         }
+                    //
+                    //
+                    //
+                    //     }
+                    // }
+
+
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    alert(msg);
+
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
