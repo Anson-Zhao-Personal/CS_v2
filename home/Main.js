@@ -35,7 +35,7 @@ requirejs(['./WorldWindShim',
         var controls = new Controls(globe);
         var gInterface = new GlobeInterface(globe);
 
-        var heatmapPanel = new HeatmapPanel(globe, gInterface.globe.navigator, gInterface.globe.worldWindowController, controls);
+        // var heatmapPanel = new HeatmapPanel(globe, gInterface.globe.navigator, gInterface.globe.worldWindowController, controls);
 
         // Create a layer manager for controlling layer visibility.
         var layerManager = new LayerManager(globe);
