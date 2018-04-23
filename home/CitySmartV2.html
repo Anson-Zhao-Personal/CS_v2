@@ -242,7 +242,7 @@
                 <div>
                     <p>
                         <select id="myListCountry"  style="width:180px; height:21px;" onchange="ChangeSelectList(this.value)">
-                            <option selected="selected">All layer</option>
+                            <option selected="selected">All Layer</option>
                             <!--<option value="AL" selected="selected" class="a">All Layer</option>-->
                             <option>United States of America</option>
                         </select>
@@ -250,8 +250,8 @@
                 </div>
                 <div>
                     <p>
-                        <select id="myListCity"  style="width:180px; height:21px;" onchange="ChangeLayerList(this.value)">
-                            <option value="AL" selected="selected">All layer</option>
+                        <select id="myListCity"  style="width:180px; height:21px;" disabled onchange="ChangeLayerList(this.value)">
+                            <option selected="selected">All Layer</option>
                         </select>
                     </p>
                 </div>
@@ -276,6 +276,7 @@
 
                                 <!-- nested -->
 
+
                                 <div class="panel-group" id="nested1">
 
                                     <div class="Menu panel panel-default Wind_Energy">
@@ -292,7 +293,7 @@
                                                     <h5>
                                                         <a>-KHS Wind Turbine</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value = "City_Smart:Kodiak_Substations">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -302,7 +303,7 @@
                                                     <h5>
                                                         <a>-KEA Wind Turbine</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:Kodiak_Substations">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -325,7 +326,7 @@
                                                     <h5>
                                                         <a>-Kodiak Grid Map</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:KEAGridMap_Layer">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -335,7 +336,7 @@
                                                     <h5>
                                                         <a>-Kodiak Overhead Cables and Poles</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value= "City_Smart:OHC_3,City_Smart:Overhead_Transformers,City_Smart:OHC_1,City_Smart:OHC_2,City_Smart:OHC_M" >
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -345,7 +346,7 @@
                                                     <h5>
                                                         <a>-Kodiak Underground Cables</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:UGC_1,City_Smart:UGC_2,City_Smart:UGC_3">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -355,7 +356,7 @@
                                                     <h5>
                                                         <a>-Kodiak Terror Lake Powerhouse Transmission Lines</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:Wire_Transmission_Kodiak">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -365,7 +366,7 @@
                                                     <h5>
                                                         <a>-Kodiak Large Transformers</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:Kodiak_Large_Transformers">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -375,7 +376,7 @@
                                                     <h5>
                                                         <a>-Kodiak Small Transformers</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:Kodiak_Small_Transformers">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -385,7 +386,7 @@
                                                     <h5>
                                                         <a>-Kodiak Substations</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right"  type="checkbox" value="City_Smart:Airport_Substation,City_Smart:Kodiak_Substations,City_Smart:K_Subs">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -395,7 +396,7 @@
                                                     <h5>
                                                         <a>-Kodiak Fuses</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:Kodiak_Substations">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -405,7 +406,7 @@
                                                     <h5>
                                                         <a>-Kodiak Poles With Guy Cable Support</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:FUSE_line_Kodiak">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -415,7 +416,7 @@
                                                     <h5>
                                                         <a>-Fei Tian Academy Energy Grid</a>
                                                         <label class="switch right">
-                                                            <input class="switch_right" type="checkbox" value="City_Smart:power,City_Smart:power2">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -534,7 +535,7 @@
                                                     <h5>
                                                         <a>-Kodiak's Alaska Pacific Seafoods</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" class="switch_right" value = "Polygon_WMS_Kodiak_Trident">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -578,7 +579,7 @@
                                                     <h5>
                                                         <a>-Kodiak Base and Airport Drainage System</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" class= "switch_right" value = "City_Smart:MANHOLE_line,City_Smart:MANHOLE_polygon">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -624,7 +625,7 @@
                                                     <h5>
                                                         <a>-FTAA Water Grid</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" class = "switch_right" value = "City_Smart:water2c_FTAA,City_Smart:water3_FTAA,City_Smart:water1c_FTAA,City_Smart:water2_FTAA,City_Smart:water3c_FTAA,City_Smart:water1_FTAA">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -845,7 +846,7 @@
                                                     <h5>
                                                         <a>-Base and Airport Roads</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" value = "City_Smart:BaseRoad_Layer">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -855,7 +856,7 @@
                                                     <h5>
                                                         <a>-Kodiak Road System</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" value = "City_Smart:Kodiak_Road_System">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -904,7 +905,7 @@
                                                     <h5>
                                                         <a>-Kodiak Parcel Map</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" value = "City_Smart:KEAParcelMap_Layer">
+                                                            <input type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
