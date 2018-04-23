@@ -96,7 +96,9 @@ requirejs(['./WorldWindShim',
                         }
 
                     });
-                } else {
+                }
+
+                if($('.switch_right').is(":not(:checked)")) {
                     $(":checkbox:not(:checked)").each(function (i) {
                         for (var a = 0; a < layers.length; a++) {
                             if (layers[a].displayName === $(this).val()) {
@@ -141,6 +143,7 @@ requirejs(['./WorldWindShim',
             // Create a WmsCapabilities object from the XML DOM
             var wms = new WorldWind.WmsCapabilities(xmlDom);
             // Retrieve a WmsLayerCapabilities object by the desired layer name
+            // console.log(layerName);
             for (var n = 0; n < layerName.length; n++) {
                 var NA = layerName[n];
 
