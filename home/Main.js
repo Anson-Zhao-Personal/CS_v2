@@ -52,21 +52,6 @@ requirejs(['./WorldWindShim',
         var layers = globe.layers;
 
         $(document).ready(function () {
-            // $.ajax({
-            //     type: "GET",
-            //     url: "http://cs.aworldbridgelabs.com:8080/geoserver/ows?service=WMS&request=GetCapabilities&version=1.1.1",
-            //     dataType: "xml",
-            //     success: function(xml){
-            //         $(xml).find('Layer').each(function(){
-            //             var sTitle = $(this).find('Name').text();
-            //             layerName.push(sTitle);
-            //         });
-            //         // console.log(layerName);
-            //     },
-            //     error: function() {
-            //         alert("An error occurred while processing XML file.");
-            //     }
-            // });
 
             $(".switch_right").each(function (i) {
 
@@ -107,35 +92,6 @@ requirejs(['./WorldWindShim',
                         }
                     })
                 }
-
-                // if($('.switch_right').is(":not(:checked)")) {
-                //     // console.log("enable:false");
-                //     var layer = [];
-                //     $(":checkbox:not(:checked)").each(function (i) {
-                //         layer = $(this).val();
-                //         var str = layer+'';
-                //         layer = str.split(",");
-                //         // console.log(str);
-                //         // console.log(layer[i]);
-                //
-                //
-                //         // console.log(val);
-                //         // console.log("s"+layers[a].displayName);
-                //
-                //         for (var a = 0; a < layers.length; a++) {
-                //             for(var l = 0; l < layer.length; l++) {
-                //                 if (layers[a].displayName === layer[l]) {
-                //
-                //                     layers[a].enabled = false;
-                //                     console.log("str: " + layers[a].displayName);
-                //                     // console.log(layers[a]);
-                //                 }
-                //             }
-                //         }
-                //
-                //     });
-                // }
-                // $.get(serviceAddress).done(createWMSLayer).fail(logError);
             });
         });
 
