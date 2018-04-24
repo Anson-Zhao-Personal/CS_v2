@@ -24,7 +24,7 @@ function ChangeSelectList(countrylevel) {
         cityList.remove(0);
     }
     $.ajax({
-        url: "http://10.11.4.97:9090/ChangeSelectList",
+        url: "http://10.11.4.249:9090/ChangeSelectList",
         dataType: 'json',
         success: function (results) {
             var option;
@@ -67,11 +67,11 @@ function ChangeSelectList(countrylevel) {
 
 function ChangeLayerList(citylevel) {
     $.ajax({
-        url: "http://10.11.4.97:9090/ChangeLayerList",
+        url: "http://10.11.4.249:9090/ChangeLayerList",
         dataType:"json",
         success: function (res) {
             var returnCityObj = getObjects(res,'CityName',citylevel);
-            console.log(returnCityObj);
+            // console.log(returnCityObj);
             $('.Menu').hide();
             for(var j = 0; j < returnCityObj.length; j++) {
                 var obj1 = returnCityObj[j].FirstLayer;
@@ -83,7 +83,7 @@ function ChangeLayerList(citylevel) {
                 $(className1).show();
                 $(className2).show();
                 $(className3).show();
-                console.log(className3)
+                // console.log(className3)
             }
         },
         error: function (jqXHR, exception) {
