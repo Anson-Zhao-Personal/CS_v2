@@ -28,7 +28,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "http://10.11.4.97:9090/firstlayer",
+                url: "http://10.11.4.249:9090/firstlayer",
                 dataType: "json",
                 success: function (res) {
                     console.log("first layer");
@@ -68,7 +68,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "http://10.11.4.97:9088/secondlayer",
+                url: "http://10.11.4.97:9090/secondlayer",
                 dataType: "json",
                 success: function (res) {
 
@@ -106,7 +106,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "http://10.11.4.97:9088/thirdlayer",
+                url: "http://10.11.4.97:9090/thirdlayer",
                 dataType: "json",
                 success: function (res) {
                     console.log("third layer");
@@ -142,7 +142,7 @@
             });
             $.ajax({
                 type: "GET",
-                url: "http://10.11.4.97:9088/layername",
+                url: "http://10.11.4.97:9090/layername",
                 dataType: "json",
                 success: function (res) {
                     console.log("layername");
@@ -182,42 +182,12 @@
 
             $.ajax({
                 type: "GET",
-                url: "http://10.11.4.97:9088/createlayer",
+                url: "http://10.11.4.97:9090/createlayer",
                 dataType: "json",
                 success: function (res) {
 
 
                     console.log("first layer");
-                    // $.each(res, function(index, value) {
-                    //     console.log(index);
-                    //     if($.inArray(value.FirstLayer, firstlayers) == -1)
-                    //     {
-                    //         firstlayers.push(value.FirstLayer);
-                    //         clean.push(value);
-                    //     }
-                    // });
-                    //
-                    // $.each(res, function(index, value) {
-                    //     if($.inArray(value.SecondLayer, secondelayer) == -1)
-                    //     {
-                    //         secondelayer.push(value.SecondLayer);
-                    //         clean2.push(value);
-                    //     }
-                    // });
-                    // $.each(res, function(index, value) {
-                    //     if($.inArray(value.ThirdLayer, thirdlayer) == -1)
-                    //     {
-                    //         thirdlayer.push(value.ThirdLayer);
-                    //         clean3.push(value);
-                    //     }
-                    // });
-                    // $.each(res, function(index, value) {
-                    //     if($.inArray(value.LayerName, layername) == -1)
-                    //     {
-                    //         layername.push(value.LayerName);
-                    //         clean4.push(value);
-                    //     }
-                    // });
                     console.log(clean);
                     console.log(clean2);
                     console.log(clean3);
@@ -677,7 +647,7 @@
                                                     <h5>
                                                         <a>-KHS Wind Turbine</a>
                                                         <label class="switch right">
-                                                            <input class="wmsLayer" type="checkbox" value = "City_Smart:Kodiak_Substations">
+                                                            <input class="wmsLayer" type="checkbox" >
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -687,7 +657,7 @@
                                                     <h5>
                                                         <a>-KEA Wind Turbine</a>
                                                         <label class="switch right">
-                                                            <input class="wmsLayer" type="checkbox" value="City_Smart:Kodiak_Substations">
+                                                            <input class="wmsLayer" type="checkbox" 5>
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -919,7 +889,7 @@
                                                     <h5>
                                                         <a>-Kodiak's Alaska Pacific Seafoods</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" class="wmsLayer" value = "Polygon_WMS_Kodiak_Trident">
+                                                            <input type="checkbox" class="wmsLayer" value = "City_Smart:Polygon_WMS_Kodiak_Trident">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>

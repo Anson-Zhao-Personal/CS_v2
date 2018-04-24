@@ -94,9 +94,9 @@ requirejs(['./WorldWindShim',
                 // // Modify the configuration objects title property to a more user friendly title
                 // // wmsConfig.title = layerName[n];
                 // // Create the WMS Layer from the configuration object
-                // var wmsLayer = new WorldWind.WmsLayer(wmsConfig);
+                var wmsLayer = new WorldWind.WmsLayer(wmsConfig);
                 // // Add the layers to WorldWind and update the layer manager
-                // globe.addLayer(wmsLayer);
+                globe.addLayer(wmsLayer);
                 // layerManager.synchronizeLayerList();
             }
         };
