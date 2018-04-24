@@ -87,7 +87,7 @@ requirejs(['./WorldWindShim',
                     $(":checkbox:not(:checked)").each(function (i) {
                         for (var a = 0; a < layers.length; a++) {
                             if (layers[a].displayName === $(this).val()) {
-                                 layers[a].enabled = false;
+                                  layers[a].enabled = false;
                             }
                         }
                     })
