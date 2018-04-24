@@ -30,11 +30,9 @@ requirejs(['./WorldWindShim',
               HeatmapPanel) {
         "use strict";
 
-        var globeID = "canvasOne";
-        var globe = new Globe({id: globeID});
+        var globe = new Globe({id: "canvasOne"});
         var controls = new Controls(globe);
         var gInterface = new GlobeInterface(globe);
-
         // var heatmapPanel = new HeatmapPanel(globe, gInterface.globe.navigator, gInterface.globe.worldWindowController, controls);
 
         // Create a layer manager for controlling layer visibility.
@@ -44,7 +42,6 @@ requirejs(['./WorldWindShim',
 
         // Web Map Service information from NASA's Near Earth Observations WMS
         var serviceAddress = "http://cs.aworldbridgelabs.com:8080/geoserver/ows?service=WMS&request=GetCapabilities&version=1.1.1";
-        // Named layer displaying Average Temperature data
 
         var layerName = [];
         var preloadLayer = [];
@@ -52,70 +49,56 @@ requirejs(['./WorldWindShim',
         var layers = globe.layers;
 
         $(document).ready(function () {
-
-            $(".switch_right").each(function (i) {
-
+            $(".wmsLayer").each(function (i) {
                 preloadLayer[i] = $(this).val();
-
             });
 
             var strs = preloadLayer + '';
 
             layerName = strs.split(",");
 
-            // layerName = res.slice(0);
-            // console.log(layerName);
-
-            $('.switch_right').click(function(){
-                // var val = [];
-                if ($('.switch_right').is(":checkbox:checked")) {
-                    $(':checkbox:checked').each(function () {
-                        // selectL = $(this).val();
-                        // var str = val+'';
-                        // val = str.split(",");
-
-                        for (var a = 0; a < layers.length; a++) {
+            $('.wmsLayer').click(function(){
+                console.log (layers);
+                for (var a = 0; a < layers.length; a++) {
+                    if ($('.wmsLayer').is(":checkbox:checked")) {
+                        $(':checkbox:checked').each(function () {
                             if (layers[a].displayName === $(this).val()) {
                                 layers[a].enabled = true;
                             }
-                        }
+                        });
+                    }
 
-                    });
-                }
-
-                if($('.switch_right').is(":not(:checked)")) {
-                    $(":checkbox:not(:checked)").each(function (i) {
-                        for (var a = 0; a < layers.length; a++) {
+                    if($('.wmsLayer').is(":not(:checked)")) {
+                        $(":checkbox:not(:checked)").each(function (i) {
                             if (layers[a].displayName === $(this).val()) {
-                                  layers[a].enabled = false;
+                                    layers[a].enabled = false;
                             }
-                        }
-                    })
+                        })
+                    }
                 }
             });
         });
 
         var createWMSLayer = function (xmlDom) {
+            console.log (layerName);
+
             // Create a WmsCapabilities object from the XML DOM
             var wms = new WorldWind.WmsCapabilities(xmlDom);
             // Retrieve a WmsLayerCapabilities object by the desired layer name
-            // console.log(layerName);
-            for (var n = 0; n < layerName.length; n++) {
-                var NA = layerName[n];
-
-                var wmsLayerCapabilities = wms.getNamedLayer(NA);
-                // console.log(wmsLayerCapabilities);
+            for (var n = 22; n < layerName.length; n++) {
+                var wmsLayerCapabilities = wms.getNamedLayer(layerName[n]);
+                // wmsLayerCapabilities.title = layerName[n];
                 // Form a configuration object from the WmsLayerCapability object
                 var wmsConfig = WorldWind.WmsLayer.formLayerConfiguration(wmsLayerCapabilities);
-                // Modify the configuration objects title property to a more user friendly title
-                wmsConfig.title = NA;
-                // Create the WMS Layer from the configuration object
-                var wmsLayer = new WorldWind.WmsLayer(wmsConfig);
-                // Add the layers to WorldWind and update the layer manager
-                globe.addLayer(wmsLayer);
+                console.log(n + "Layer: " + layerName[n]);
+                // // Modify the configuration objects title property to a more user friendly title
+                // // wmsConfig.title = layerName[n];
+                // // Create the WMS Layer from the configuration object
+                // var wmsLayer = new WorldWind.WmsLayer(wmsConfig);
+                // // Add the layers to WorldWind and update the layer manager
+                // globe.addLayer(wmsLayer);
                 // layerManager.synchronizeLayerList();
             }
-
         };
 
         // Called if an error occurs during WMS Capabilities document retrieval
@@ -124,5 +107,4 @@ requirejs(['./WorldWindShim',
         };
 
         $.get(serviceAddress).done(createWMSLayer).fail(logError);
-
     });
