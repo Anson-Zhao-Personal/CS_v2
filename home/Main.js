@@ -58,7 +58,7 @@ requirejs(['./WorldWindShim',
             layerName = strs.split(",");
 
             $('.wmsLayer').click(function(){
-                console.log (layers);
+                // console.log (layers);
                 for (var a = 0; a < layers.length; a++) {
                     if ($('.wmsLayer').is(":checkbox:checked")) {
                         $(':checkbox:checked').each(function () {
@@ -80,7 +80,7 @@ requirejs(['./WorldWindShim',
         });
 
         var createWMSLayer = function (xmlDom) {
-            console.log (layerName);
+            // console.log (layerName);
 
             // Create a WmsCapabilities object from the XML DOM
             var wms = new WorldWind.WmsCapabilities(xmlDom);
@@ -90,10 +90,10 @@ requirejs(['./WorldWindShim',
                 // wmsLayerCapabilities.title = layerName[n];
                 // Form a configuration object from the WmsLayerCapability object
                 var wmsConfig = WorldWind.WmsLayer.formLayerConfiguration(wmsLayerCapabilities);
-                console.log(n + "Layer: " + layerName[n]);
-                // // Modify the configuration objects title property to a more user friendly title
-                // // wmsConfig.title = layerName[n];
-                // // Create the WMS Layer from the configuration object
+                // console.log(n + "Layer: " + layerName[n]);
+                // Modify the configuration objects title property to a more user friendly title
+                // wmsConfig.title = layerName[n];
+                // Create the WMS Layer from the configuration object
                 var wmsLayer = new WorldWind.WmsLayer(wmsConfig);
                 // // Add the layers to WorldWind and update the layer manager
                 globe.addLayer(wmsLayer);
@@ -107,4 +107,187 @@ requirejs(['./WorldWindShim',
         };
 
         $.get(serviceAddress).done(createWMSLayer).fail(logError);
+
+        //Charlie's Code
+
+        WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
+
+        var wwd = new WorldWind.WorldWindow("canvasOne");
+
+        var LayerInfoGlobal = [];
+
+        //This wmsLayer used to be switch_right but it's different on this project so I changed it
+        $('.switch_right').click(function() {
+            var SelectedLayers = [];
+            var LayerInfo = [];
+            var CurrentToggleVal = [];
+
+            if ($('.switch_right').is(":checkbox:checked")) {
+
+                $(':checkbox:checked').each(function () {
+                    CurrentToggleVal = $(this).val();
+                    // alert(CurrentToggleVal);
+                    SelectedLayers.push(CurrentToggleVal);
+                    // CreatePlacemarkLayer = $(this).val();
+                });
+            }
+
+            $.getJSON( "LayerNCC.json", function (layer) {
+                // console.log (SelectedLayers.length);
+                for (var i = 0; i < SelectedLayers.length; i++) {
+                    for (var j = 0; j < layer.length; j++) {
+                        if (SelectedLayers[i] === layer[j].Layer_Name) {
+                            // console.log(SelectedLayers[i]);
+                            LayerInfo.push(layer[j]);
+                            var loca = layer[j].Latitude_and_Longitude_Decimal;
+                            var locat = loca.split (",");
+                            var col = layer[j].Color;
+                            var colo = col.split(" ");
+                            var laname = layer[j].Layer_Name;
+
+                            CreatePlacemarkLayer(locat, colo, laname);
+                        }
+                    }
+
+                }
+                LayerInfoGlobal.push(LayerInfo);
+            });
+        });
+
+        for (var j = 0; j < LayerInfoGlobal.length; j++) {
+                console.log(LayerInfoGlobal.length);
+                if (j < LayerInfoGlobal.length) {
+                    wwd.layer.push(CreatePlacemarkLayer);
+                    CreatePlacemarkLayer.enabled = true;
+                    wwd.layer.enabled = true;
+                    // console.log(wwd.layers.enabled);
+                    // console.log(CreatePlacemarkLayer.enabled = true);
+                }
+            }
+            // console.log(wwd.layers);
+
+        //This is creating the placemark layer and to connect the placemark to the switch
+        var CreatePlacemarkLayer = function (location, pcolor, lname) {
+            var placemarkAttributes;
+            var highlightAttributes;
+
+            // Create the placemark.
+            var placemark = new WorldWind.Placemark(new WorldWind.Position(location[0], location[1], 1e2), false, null);
+            //placemark.label = "This is a school" + SitesPL[i].SiteID; // NA,USA,1234
+            placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+
+            // Create the custom image for the placemark.
+            var canvas = document.createElement("canvas"),
+                ctx2d = canvas.getContext("2d"),
+                size = 64, c = size / 2 - 0.5, innerRadius = 5, outerRadius = 20;
+
+            canvas.width = size;
+            canvas.height = size;
+
+            var gradient = ctx2d.createRadialGradient(c, c, innerRadius, c, c, outerRadius);
+            gradient.addColorStop(0, pcolor[0]);
+            gradient.addColorStop(0.5, pcolor[1]);
+            gradient.addColorStop(1, pcolor[2]);
+
+            ctx2d.fillStyle = gradient;
+            ctx2d.arc(c, c, outerRadius, 0, 2 * Math.PI, false);
+            ctx2d.fill();
+
+            // Create the placemark attributes for the placemark.
+            placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
+            // The line of code above used to have a (placemarkAttributes) in the PlacemarkAttributtes
+            // Wrap the canvas created above in an ImageSource object to specify it as the placemark image source.
+            placemarkAttributes.imageSource = new WorldWind.ImageSource(canvas);
+            placemark.attributes = placemarkAttributes;
+
+            var placemarkLayer = new WorldWind.RenderableLayer(lname);
+            // var PlacemarkSettings = //Set up the common placemark attributes.
+            placemarkAttributes.imageScale = 0.5;
+            placemarkAttributes.imageOffset = new WorldWind.Offset(
+                WorldWind.OFFSET_FRACTION, 0.5,
+                WorldWind.OFFSET_FRACTION, 0.5);
+            placemarkAttributes.imageColor = WorldWind.Color.WHITE;
+
+            // Create the highlight attributes for this placemark. Note that the normal attributes are specified as
+            // the default highlight attributes so that all properties are identical except the image scale. You could
+            // instead vary the color, image, or other property to control the highlight representation.
+            highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+            highlightAttributes.imageScale = 1.2;
+            placemark.highlightAttributes = highlightAttributes;
+
+            // Add the placemark to the layer.
+            placemarkLayer.addRenderable(placemark);
+
+            placemarkLayer.enabled = true;
+
+            // Add the placemarks layer to the World Window's layer list.
+            wwd.addLayer(placemarkLayer);
+        };
+
+        // // Create a layer manager for controlling layer visibility.
+        // var layerManger = new LayerManager(wwd);
+        //
+        //
+        // // Now set up to handle highlighting.
+        // var highlightController = new WorldWind.HighlightController(wwd);
+        //
+        //
+        // var handleMouseCLK = function (o) {
+        //
+        //     // The input argument is either an Event or a TapRecognizer. Both have the same properties for determining
+        //     // the mouse or tap location.
+        //     var x = o.clientX,
+        //         y = o.clientY;
+        //
+        //     // Perform the pick. Must first convert from window coordinates to canvas coordinates, which are
+        //     // relative to the upper left corner of the canvas rather than the upper left corner of the page.
+        //
+        //     //This is the the Popup Box coordinate finder
+        //     var pickList = wwd.pick(wwd.canvasCoordinates(x, y));
+        //     console.log(pickList);
+        //     for (var q = 0; q < pickList.objects.length; q++) {
+        //         var pickedPL = pickList.position[q].latitude;
+        //         alert("It's working");
+        //         if (pickedPL instanceof WorldWind.Placemark) {
+        //
+        //             //sitePopUp(pickedPL.label);
+        //             //alert("It Worked");
+        //
+        //             $(document).ready(function () {
+        //                 // Make a popup Box after insert popup list items.
+        //
+        //                 var modal = document.getElementsByClassName('');// Get the modal
+        //                 var span = document.getElementsByClassName('');// Get the <span> element that closes the modal
+        //
+        //                 // When the user double clicks the placemark, open the modal
+        //                 modal.style.display = "block";
+        //
+        //                 // When the user clicks on <span> (x), close the modal
+        //                 span.onclick = function () {
+        //                     modal.style.display = "none";
+        //                 };
+        //
+        //                 // When the user clicks anywhere outside of the modal, close it
+        //                 window.onclick = function (event) {
+        //                     if (event.target = modal) {
+        //                         modal.style.display = "none";
+        //                     }
+        //
+        //                 }
+        //
+        //             })
+        //         }
+        //     }
+        //
+        //     pickList = [];
+        //
+        // };
+        //
+        // // Listen for mouse double clicks placemarks and then pop up a new dialog box.
+        // wwd.addEventListener("click", handleMouseCLK);
+        //
+        // // Listen for taps on mobile devices and then pop up a new dialog box.
+        // var tapRecognizer = new WorldWind.TapRecognizer(wwd, handleMouseCLK);
+        //
+        // var layerList = wwd.layers;
     });
