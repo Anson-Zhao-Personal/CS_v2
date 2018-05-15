@@ -493,18 +493,6 @@
   },
   {
     "Location": "Alaska, USA",
-    "Site_Name": "Kodiak Wells Fargo",
-    "Site_Description": "This is one of the four banks on the island of Kodiak. Wells Fargo has two banking locations on island.",
-    "Latitude_and_Longitude_DegMinSec": "N/A",
-    "Latitude_and_Longitude_Decimal": "57.809496, -152.366067",
-    "Link_to_site_location": "https://www.wellsfargo.com/locator/bank/202__MARINE__WAY_KODIAK_AK_99615/",
-    "Picture_Location": "Kodiak_Wells_Fargo.png",
-    "Copyright": "Free to Use",
-    "Layer_Name": "Kodiak_Wells_Fargo",
-    "Color": ""
-  },
-  {
-    "Location": "Alaska, USA",
     "Site_Name": "Kodiak First National Bank",
     "Site_Description": "This is one of the four banks on the island of Kodiak.",
     "Latitude_and_Longitude_DegMinSec": "N/A",
