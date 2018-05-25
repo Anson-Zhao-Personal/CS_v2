@@ -26,7 +26,6 @@
             top: 0;
             width: auto;
             height: auto;
-            overflow: scroll;
             background-color: rgb(0,0,0);
             background-color: rgba(0,0,0,0.4);
         }
@@ -38,26 +37,43 @@
             padding: 20px;
             border: 1px solid #888;
             width: 40%;
-            overflow: scroll;
         }
 
         /* popupBox (background) */
         .modalWrapper {
             margin: 50px auto;
             text-align: left;
-            overflow: auto;
             z-index: 1;
+            overflow: scroll;
         }
 
         .modalHeader {
             padding: 10px 16px;
-            background-color: #75b6cc;
             color: white;
+        }
+
+        #modalHeader {
+            background-color: #75b6cc;
         }
 
         .modal-footer {
             padding: 10px 16px;
             background-color: #5cb85c;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #ff0000;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ff0000;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         /* This is the previous code for HTML, I'm not quite sure how to comment in HTML so I did it here
@@ -77,13 +93,17 @@
 <div id="myModal" class="modal">
     <div class="modalWrapper">
         <div class="modal-content">
+
             <!-- Popup Box Header-->
             <div class="modalHeader">
-                <p id="modalHeader"></p>
+                <p id="modalHeader">
+                    Fix this Part
+                </p>
+                <br>
+                <p><span class="close">&times;</span></p>
             </div>
             <!-- Popup Box Body-->
-            <div class="modal-body" id="modalBody">
-                <p>This is the Kodiak High School's Wind Turbine to learn about sustainable energy.</p>
+            <p class="modal-body" id="modalBody">
             </div>
             <!-- Popup Box Footer-->
             <div class="modal-footer">

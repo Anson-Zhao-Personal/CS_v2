@@ -71,7 +71,7 @@ requirejs(['./WorldWindShim',
                     if($('.wmsLayer').is(":not(:checked)")) {
                         $(":checkbox:not(:checked)").each(function (i) {
                             if (layers[a].displayName === $(this).val()) {
-                                    layers[a].enabled = false;
+                                layers[a].enabled = false;
                             }
                         })
                     }
@@ -115,17 +115,15 @@ requirejs(['./WorldWindShim',
         // var globe = new WorldWind.WorldWindow("canvasOne");
         //
         // var LayerInfoGlobal = [];
-        var LayerInfo = [];
-        var laname;
-        // var CoordinateLatInfo = [];
-        // var CoordinateLongInfo = [];
+
+        // All the Global Variables
+        var laname, i, j, loca, locat, col, colo;
+
+        var LayerInfo = [], SelectedLayers = [], CoordinateLatInfo = [], CoordinateLongInfo = [];
 
         //This wmsLayer used to be switch_right but it's different on this project so I changed it
         $('.switch_right').click(function() {
-            var SelectedLayers = [];
             var CurrentToggleVal = $(this).val();
-            var loca;
-            var locat;
 
             if ($('.switch_right').is(":checkbox:checked")) {
 
@@ -161,24 +159,24 @@ requirejs(['./WorldWindShim',
 
             $.getJSON( "LayerNCC.json", function (layer) {
                 // console.log (SelectedLayers.length);
-                for (var i = 0; i < SelectedLayers.length; i++) {
-                    for (var j = 0; j < layer.length; j++) {
+                for (i = 0; i < SelectedLayers.length; i++) {
+                    for (j = 0; j < layer.length; j++) {
                         if (SelectedLayers[i] === layer[j].Layer_Name) {
                             // console.log(SelectedLayers[i]);
                             LayerInfo.push(layer[j]);
                             loca = layer[j].Latitude_and_Longitude_Decimal;
                             locat = loca.split (",");
-                            var col = layer[j].Color;
-                            var colo = col.split(" ");
+                            col = layer[j].Color;
+                            colo = col.split(" ");
                             laname = layer[j].Layer_Name;
-                            console.log(laname);
+                            // console.log(laname);
                             CreatePlacemarkLayer(locat, colo, laname);
                         }
                     }
                 }
             });
-            console.log(LayerInfo);
-
+            // console.log(LayerInfo);
+            // console.log(SelectedLayers);
         });
 
         // for (var j = 0; j < LayerInfo.length; j++) {
@@ -252,8 +250,8 @@ requirejs(['./WorldWindShim',
 
             // console.log(placemark.position.latitude);
             // console.log(placemark.position.longitude);
-            // CoordinateLatInfo.push(placemark.position.latitude);
-            // CoordinateLongInfo.push(placemark.position.longitude);
+            CoordinateLatInfo.push(placemark.position.latitude);
+            CoordinateLongInfo.push(placemark.position.longitude);
         };
 
         // Create a layer manager for controlling layer visibility.
@@ -262,6 +260,65 @@ requirejs(['./WorldWindShim',
         // Now set up to handle highlighting.
         var highlightController = new WorldWind.HighlightController(globe);
 
+        var sitePopUp = function(jsonobj) {
+            var sitename, sitedesc, picpath, siteurl;
+
+            // $.getJSON(popupjsonpath, function (res) {
+            //     //Get site information.
+            //     for (var n = 0; n < res.length; n++) {
+            //         if (res[n].SiteID === siteid) {
+            //             sitename = res[n].SiteName;
+            //             picpath = res[n].PicPath;
+            //             sitedesc = res[n].SiteDescription;
+            //             siteurl = res[n].SiteURL;
+            //             break;
+            //         }
+            //     }
+            //
+            // $.getJSON( "LayerNCC.json", function (jasn) {
+            //             //     for (var n = 0; n < SelectedLayers.length; n++) {
+            //             //         // if (n < SelectedLayers.length) {
+            //             //         sitename = jasn[n].Site_Name;
+            //             //         picpath = jasn[n].Picture_Location;
+            //             //         sitedesc = jasn[n].Site_Description;
+            //             //         siteurl = jasn[n].Link_to_site_Location;
+            //             //         break;
+            //             //         // }
+            //             //     }
+            //             // });
+            // $.getJSON( "LayerNCC.json", function (jason) {  });
+            // var lat = jsonobj.latitude;
+            // var long = jsonobj.longitude;
+            var latlong = jsonobj.latitude + "," + jsonobj.longitude;
+            console.log (loca);
+
+            for (var z = 0; z < LayerInfo.length; z++) {
+                if (loca === latlong) {
+                    sitename = LayerInfo[z].Site_Name;
+                    picpath = "../images/Placemark_Images/" + LayerInfo[z].Picture_Location;
+                    sitedesc = LayerInfo[z].Site_Description;
+                    siteurl = LayerInfo[z].Link_to_site_Location;
+                    console.log(picpath);
+                    break;
+                }
+            }
+
+
+            //Insert site information into indexTest.html.
+            var popupBodyItem = $("#modalBody");
+            popupBodyItem.children().remove();
+
+            var popupBodyName = $('<p class="site-name"><h4>' + sitename + '</h4></p>');
+            var popupBodyDesc = $('<p class="site-description">' + sitedesc + '</p><br>');
+            var popupBodyImg = $('<img class="site-img" src="' + picpath + '" width=525px height=auto /><br>');
+            var popupBodyURL = $('<p class="site-URL">Please click <a href="' + siteurl + '" target="_blank"><span id="href"><b>here</b></span></a> for more detailed information</p>');
+
+            popupBodyItem.append(popupBodyName);
+            popupBodyItem.append(popupBodyDesc);
+            popupBodyItem.append(popupBodyImg);
+            popupBodyItem.append(popupBodyURL);
+
+        };
 
         var handleMouseCLK = function (o) {
 
@@ -278,38 +335,39 @@ requirejs(['./WorldWindShim',
             // console.log(pickList.objects[0]);
             for (var q = 0; q < pickList.objects.length; q++) {
                 var pickedPL = pickList.objects[q].userObject;
-                // console.log (pickedPL);
+                console.log (pickedPL);
                 if (pickedPL instanceof WorldWind.Placemark) {
-
-                    //sitePopUp(pickedPL.label);
+                    console.log (pickedPL.position.latitude);
+                    sitePopUp(pickedPL.position);
                     //alert("It Worked");
 
                     $(document).ready(function () {
-                       // console.log("It's connected");
-                       // Get the modal
-                       var modal = document.getElementById('myModal');
+                        // console.log("It's connected");
+                        // Get the modal
+                        var modal = document.getElementById('myModal');
 
-                       // Get the button that opens the modal
-                       // var btn = document.getElementById("myBtn");
-                       //
-                       // Get the <span> element that closes the modal
-                       // var span = document.getElementsByClassName("close");
-                       // Don't need it
-                       // When the user clicks on <span> (x), close the modal
-                       //                         span.onclick = function() {
-                       //                             modal.style.display = "none";
-                       //                         }; I don't need span
-                       //
-                       // When the user clicks the button, open the modal
+                        // Get the button that opens the modal
+                        // var btn = document.getElementById("myBtn");
+                        //
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
 
-                       modal.style.display = "block";
+                        // When the user clicks the button, open the modal
 
-                       // When the user clicks anywhere outside of the modal, close it
-                       window.onclick = function(event) {
-                           if (event.target == modal) {
-                               modal.style.display = "none";
-                           }
-                       };
+                        modal.style.display = "block";
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                            modal.style.display = "none";
+                        };
+
+
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        };
                     })
                 }
             }
