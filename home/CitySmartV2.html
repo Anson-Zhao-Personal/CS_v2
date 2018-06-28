@@ -12,363 +12,446 @@
     <link rel="stylesheet" href="../css/menu.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script data-main="Main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+    <script data-main="Main2" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var parentmenu = document.getElementById("accordion");
-
-            var firstlayers = [];
-            var clean = [];
-            var secondlayer = [];
-            var clean2 = [];
-            var thirdlayer = [];
-            var clean3 = [];
-            var layername = [];
-            var clean4 = [];
-
-            $.ajax({
-                type: "GET",
-                url: "http://10.11.4.249:9090/firstlayer",
-                dataType: "json",
-                success: function (res) {
-                    console.log("first layer");
-                    console.log(res);
-                    $.each(res, function (index, value) {
-                        console.log(value.FirstLayer);
-                        if ($.inArray(value.FirstLayer, firstlayers) == -1) {
-                            firstlayers.push(value.FirstLayer);
-                            clean.push(value);
-                            console.log(clean);
-                        }
-                    });
-
-                },
-                error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    alert(msg);
-                    console.log(msg);
-
-                }
-            });
-
-            $.ajax({
-                type: "GET",
-                url: "http://10.11.4.97:9090/secondlayer",
-                dataType: "json",
-                success: function (res) {
-
-                    console.log("second layer");
-
-                    $.each(res, function (index, value) {
-                        if ($.inArray(value.SecondLayer, secondlayer) == -1) {
-                            secondlayer.push(value.SecondLayer);
-                            clean2.push(value);
-                        }
-                    });
-
-                },
-                error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    alert(msg);
-                    console.log("s" + msg);
-                }
-            });
-
-            $.ajax({
-                type: "GET",
-                url: "http://10.11.4.97:9090/thirdlayer",
-                dataType: "json",
-                success: function (res) {
-                    console.log("third layer");
-
-                    $.each(res, function (index, value) {
-                        if ($.inArray(value.ThirdLayer, thirdlayer) == -1) {
-                            thirdlayer.push(value.ThirdLayer);
-                            clean3.push(value);
-                        }
-                    });
-
-                },
-                error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    alert(msg);
-                    console.log("t" + msg);
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "http://10.11.4.97:9090/layername",
-                dataType: "json",
-                success: function (res) {
-                    console.log("layername");
-
-
-                    $.each(res, function (index, value) {
-                        if ($.inArray(value.LayerName, layername) == -1) {
-                            layername.push(value.LayerName);
-                            clean4.push(value);
-                        }
-                    });
-
-                },
-                error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    alert(msg);
-                    console.log("sds" + msg)
-
-                }
-            });
-
-
-            $.ajax({
-                type: "GET",
-                url: "http://10.11.4.97:9090/createlayer",
-                dataType: "json",
-                success: function (res) {
-
-
-                    console.log("first layer");
-                    console.log(clean);
-                    console.log(clean2);
-                    console.log(clean3);
-                    console.log(clean4);
-                    console.log(firstlayers);
-                    console.log(secondlayer);
-                    console.log(thirdlayer);
-                    console.log(layername);
-
-
-                    $.each(res, function (index, value) {
-
-                        if ($.inArray(value[index] = firstlayers[index])) {
-                            var paneldefault1 = document.createElement("div");
-                            paneldefault1.className = "panel panel-default";
-                            paneldefault1.id = "exam";
-                            var panelheading1 = document.createElement("div");
-                            panelheading1.className = "panel-heading";
-                            var paneltitle1 = document.createElement("h4");
-                            paneltitle1.className = "panel-title";
-                            var collapsed1 = document.createElement("a");
-                            collapsed1.className = "collapsed";
-                            collapsed1.setAttribute("data-toggle", "collapse");
-                            collapsed1.setAttribute("data-parent", "#nested1");
-                            collapsed1.href = "#collapseOne";
-                            var firstlayername = document.createTextNode(clean[index].FirstLayer);
-                            collapsed1.appendChild(firstlayername);
-                            paneltitle1.appendChild(collapsed1);
-                            panelheading1.appendChild(paneltitle1);
-                            paneldefault1.appendChild(panelheading1);///create layer name for first layer ....
-                            parentmenu.appendChild(paneldefault1);
-                        } else {
-                            console.log("sssssss");
-                        }
-                        if ($.inArray(clean[index] = clean2[index])) {
-                            var collapseone = document.createElement("div");//secondlayer
-                            collapseone.className = "panel-collapse collapse";
-                            collapseone.id = "collapseOne";
-                            var panelbody1 = document.createElement("div");
-                            panelbody1.className = "panel-body";
-                            var panelgroup1 = document.createElement("div");
-                            panelgroup1.id = "nested1";
-                            panelgroup1.className = "panel-group";
-                            var paneldefault2 = document.createElement("div");
-                            paneldefault2.className = "panel panel-default";
-                            var panelheading2 = document.createElement("div");
-                            panelheading2.className = "panel-heading";
-                            var paneltitle2 = document.createElement("h4");
-                            paneltitle2.className = "panel-title";
-                            var collapsed2 = document.createElement("a");
-                            collapsed2.className = "collapsed";
-                            collapsed2.setAttribute("data-toggle", "collapse");
-                            collapsed2.setAttribute("data-parent", "#nested1");
-                            collapsed2.href = "#nested1-collapseOne";
-                            var secondlayername = document.createTextNode(clean2[index].SecondLayer);
-                            var panelbody2 = document.createElement("div");
-                            panelbody2.className = "panel-body";
-                            collapseone.appendChild(panelbody1);
-                            panelbody1.appendChild(panelgroup1);
-                            panelgroup1.appendChild(paneldefault2);
-                            paneldefault2.appendChild(panelheading2);
-                            panelheading2.appendChild(paneltitle2);
-                            collapsed2.appendChild(secondlayername);
-                            paneltitle2.appendChild(collapsed2);
-                            collapsed2.appendChild(panelbody2);
-                            paneldefault1.appendChild(collapseone);
-                            console.log(clean2[index].SecondLayer);
-                        }
-                    });
-
-
-                    // for(var a = 0; a < clean.length; a++) {
-                    //     var paneldefault1 = document.createElement("div");
-                    //     paneldefault1.className = "panel panel-default";
-                    //     paneldefault1.id = "exam";
-                    //     var panelheading1 = document.createElement("div");
-                    //     panelheading1.className = "panel-heading";
-                    //     var paneltitle1 = document.createElement("h4");
-                    //     paneltitle1.className = "panel-title";
-                    //     var collapsed1 = document.createElement("a");
-                    //     collapsed1.className = "collapsed";
-                    //     collapsed1.setAttribute("data-toggle", "collapse");
-                    //     collapsed1.setAttribute("data-parent", "#nested1");
-                    //     collapsed1.href = "#collapseOne";
-                    //     var firstlayername = document.createTextNode(clean[a].FirstLayer);
-                    //     collapsed1.appendChild(firstlayername);
-                    //     paneltitle1.appendChild(collapsed1);
-                    //     panelheading1.appendChild(paneltitle1);
-                    //     paneldefault1.appendChild(panelheading1);///create layer name for first layer ....
-                    //     parentmenu.appendChild(paneldefault1); //add first layer to main menu.
-                    //
-                    //     for(var b = 0; b < clean.length; b++) {
-                    //         var collapseone = document.createElement("div");//secondlayer
-                    //         collapseone.className = "panel-collapse collapse";
-                    //         collapseone.id = "collapseOne";
-                    //         var panelbody1 = document.createElement("div");
-                    //         panelbody1.className = "panel-body";
-                    //         var panelgroup1 = document.createElement("div");
-                    //         panelgroup1.id = "nested1";
-                    //         panelgroup1.className= "panel-group";
-                    //         var paneldefault2 = document.createElement("div");
-                    //         paneldefault2.className = "panel panel-default";
-                    //         var panelheading2 = document.createElement("div");
-                    //         panelheading2.className = "panel-heading";
-                    //         var paneltitle2 = document.createElement("h4");
-                    //         paneltitle2.className = "panel-title";
-                    //         var collapsed2 = document.createElement("a");
-                    //         collapsed2.className = "collapsed";
-                    //         collapsed2.setAttribute("data-toggle", "collapse");
-                    //         collapsed2.setAttribute("data-parent", "#nested1");
-                    //         collapsed2.href = "#nested1-collapseOne";
-                    //         var secondlayername = document.createTextNode(clean2[b].SecondLayer);
-                    //         var panelbody2 = document.createElement("div");
-                    //         panelbody2.className = "panel-body";
-                    //         collapseone.appendChild(panelbody1);
-                    //         panelbody1.appendChild(panelgroup1);
-                    //         panelgroup1.appendChild(paneldefault2);
-                    //         paneldefault2.appendChild(panelheading2);
-                    //         panelheading2.appendChild(paneltitle2);
-                    //         collapsed2.appendChild(secondlayername);
-                    //         paneltitle2.appendChild(collapsed2);
-                    //         collapsed2.appendChild(panelbody2);
-                    //         paneldefault1.appendChild(collapseone);
-                    //
-                    //         for(var c = 0; c < clean4.length; c++) {
-                    //             var checkboxdiv = document.createElement("div");
-                    //             var checkboxh5 = document.createElement("h5");
-                    //             var checkboxa = document.createElement("a");
-                    //             var checkaboxat = document.createTextNode(clean3[c].ThirdLayer);
-                    //             var checkboxlabel = document.createElement("label");
-                    //             checkboxlabel.className = "switch right";
-                    //             var checkboxinput = document.createElement("input");
-                    //             checkboxinput.type = "checkbox";
-                    //             checkboxinput.setAttribute("value", clean4[c].LayerName);
-                    //             var checkboxspan = document.createElement("span");
-                    //             checkboxspan.className = "slider round";
-                    //             checkboxdiv.appendChild(checkboxh5);
-                    //             checkboxa.appendChild(checkaboxat);
-                    //             checkboxh5.appendChild(checkboxa);
-                    //             checkboxh5.appendChild(checkboxlabel);
-                    //             checkboxlabel.appendChild(checkboxinput);
-                    //             checkboxlabel.appendChild(checkboxspan);
-                    //             panelbody2.appendChild(checkboxdiv);
-                    //
-                    //
-                    //
-                    //
-                    //         }
-                    //
-                    //
-                    //
-                    //     }
-                    // }
-
-
-                },
-                error: function (jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    alert(msg);
-
-                }
-            });
-        });
+        // $(document).ready(function() {
+        //     var parentmenu = document.getElementById("accordion");
+        //
+        //     var firstlayers = [];
+        //     var clean = [];
+        //     var secondlayer = [];
+        //     var clean2 = [];
+        //     var thirdlayer = [];
+        //     var clean3 = [];
+        //     var layername = [];
+        //     var clean4 = [];
+        //
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://10.11.4.249:9090/firstlayer",
+        //         dataType: "json",
+        //         success: function (res) {
+        //             console.log("first layer");
+        //             console.log(res);
+        //             $.each(res, function (index, value) {
+        //                 console.log(value.FirstLayer);
+        //                 if ($.inArray(value.FirstLayer, firstlayers) == -1) {
+        //                     firstlayers.push(value.FirstLayer);
+        //                     clean.push(value);
+        //                     console.log(clean);
+        //                 }
+        //             });
+        //
+        //         },
+        //         error: function (jqXHR, exception) {
+        //             var msg = '';
+        //             if (jqXHR.status === 0) {
+        //                 msg = 'Not connect.\n Verify Network.';
+        //             } else if (jqXHR.status == 404) {
+        //                 msg = 'Requested page not found. [404]';
+        //             } else if (jqXHR.status == 500) {
+        //                 msg = 'Internal Server Error [500].';
+        //             } else if (exception === 'parsererror') {
+        //                 msg = 'Requested JSON parse failed.';
+        //             } else if (exception === 'timeout') {
+        //                 msg = 'Time out error.';
+        //             } else if (exception === 'abort') {
+        //                 msg = 'Ajax request aborted.';
+        //             } else {
+        //                 msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        //             }
+        //             alert(msg);
+        //             console.log(msg);
+        //
+        //         }
+        //     });
+        //
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://10.11.4.97:9090/secondlayer",
+        //         dataType: "json",
+        //         success: function (res) {
+        //
+        //             console.log("second layer");
+        //
+        //             $.each(res, function (index, value) {
+        //                 if ($.inArray(value.SecondLayer, secondlayer) == -1) {
+        //                     secondlayer.push(value.SecondLayer);
+        //                     clean2.push(value);
+        //                 }
+        //             });
+        //
+        //         },
+        //         error: function (jqXHR, exception) {
+        //             var msg = '';
+        //             if (jqXHR.status === 0) {
+        //                 msg = 'Not connect.\n Verify Network.';
+        //             } else if (jqXHR.status == 404) {
+        //                 msg = 'Requested page not found. [404]';
+        //             } else if (jqXHR.status == 500) {
+        //                 msg = 'Internal Server Error [500].';
+        //             } else if (exception === 'parsererror') {
+        //                 msg = 'Requested JSON parse failed.';
+        //             } else if (exception === 'timeout') {
+        //                 msg = 'Time out error.';
+        //             } else if (exception === 'abort') {
+        //                 msg = 'Ajax request aborted.';
+        //             } else {
+        //                 msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        //             }
+        //             alert(msg);
+        //             console.log("s" + msg);
+        //         }
+        //     });
+        //
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://10.11.4.97:9090/thirdlayer",
+        //         dataType: "json",
+        //         success: function (res) {
+        //             console.log("third layer");
+        //
+        //             $.each(res, function (index, value) {
+        //                 if ($.inArray(value.ThirdLayer, thirdlayer) == -1) {
+        //                     thirdlayer.push(value.ThirdLayer);
+        //                     clean3.push(value);
+        //                 }
+        //             });
+        //
+        //         },
+        //         error: function (jqXHR, exception) {
+        //             var msg = '';
+        //             if (jqXHR.status === 0) {
+        //                 msg = 'Not connect.\n Verify Network.';
+        //             } else if (jqXHR.status == 404) {
+        //                 msg = 'Requested page not found. [404]';
+        //             } else if (jqXHR.status == 500) {
+        //                 msg = 'Internal Server Error [500].';
+        //             } else if (exception === 'parsererror') {
+        //                 msg = 'Requested JSON parse failed.';
+        //             } else if (exception === 'timeout') {
+        //                 msg = 'Time out error.';
+        //             } else if (exception === 'abort') {
+        //                 msg = 'Ajax request aborted.';
+        //             } else {
+        //                 msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        //             }
+        //             alert(msg);
+        //             console.log("t" + msg);
+        //         }
+        //     });
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://10.11.4.97:9090/layername",
+        //         dataType: "json",
+        //         success: function (res) {
+        //             console.log("layername");
+        //
+        //
+        //             $.each(res, function (index, value) {
+        //                 if ($.inArray(value.LayerName, layername) == -1) {
+        //                     layername.push(value.LayerName);
+        //                     clean4.push(value);
+        //                 }
+        //             });
+        //
+        //         },
+        //         error: function (jqXHR, exception) {
+        //             var msg = '';
+        //             if (jqXHR.status === 0) {
+        //                 msg = 'Not connect.\n Verify Network.';
+        //             } else if (jqXHR.status == 404) {
+        //                 msg = 'Requested page not found. [404]';
+        //             } else if (jqXHR.status == 500) {
+        //                 msg = 'Internal Server Error [500].';
+        //             } else if (exception === 'parsererror') {
+        //                 msg = 'Requested JSON parse failed.';
+        //             } else if (exception === 'timeout') {
+        //                 msg = 'Time out error.';
+        //             } else if (exception === 'abort') {
+        //                 msg = 'Ajax request aborted.';
+        //             } else {
+        //                 msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        //             }
+        //             alert(msg);
+        //             console.log("sds" + msg)
+        //
+        //         }
+        //     });
+        //
+        //
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://10.11.4.97:9090/createlayer",
+        //         dataType: "json",
+        //         success: function (res) {
+        //
+        //
+        //             console.log("first layer");
+        //             console.log(clean);
+        //             console.log(clean2);
+        //             console.log(clean3);
+        //             console.log(clean4);
+        //             console.log(firstlayers);
+        //             console.log(secondlayer);
+        //             console.log(thirdlayer);
+        //             console.log(layername);
+        //
+        //
+        //             $.each(res, function (index, value) {
+        //
+        //                 if ($.inArray(value[index] = firstlayers[index])) {
+        //                     var paneldefault1 = document.createElement("div");
+        //                     paneldefault1.className = "panel panel-default";
+        //                     paneldefault1.id = "exam";
+        //                     var panelheading1 = document.createElement("div");
+        //                     panelheading1.className = "panel-heading";
+        //                     var paneltitle1 = document.createElement("h4");
+        //                     paneltitle1.className = "panel-title";
+        //                     var collapsed1 = document.createElement("a");
+        //                     collapsed1.className = "collapsed";
+        //                     collapsed1.setAttribute("data-toggle", "collapse");
+        //                     collapsed1.setAttribute("data-parent", "#nested1");
+        //                     collapsed1.href = "#collapseOne";
+        //                     var firstlayername = document.createTextNode(clean[index].FirstLayer);
+        //                     collapsed1.appendChild(firstlayername);
+        //                     paneltitle1.appendChild(collapsed1);
+        //                     panelheading1.appendChild(paneltitle1);
+        //                     paneldefault1.appendChild(panelheading1);///create layer name for first layer ....
+        //                     parentmenu.appendChild(paneldefault1);
+        //                 } else {
+        //                     console.log("sssssss");
+        //                 }
+        //                 if ($.inArray(clean[index] = clean2[index])) {
+        //                     var collapseone = document.createElement("div");//secondlayer
+        //                     collapseone.className = "panel-collapse collapse";
+        //                     collapseone.id = "collapseOne";
+        //                     var panelbody1 = document.createElement("div");
+        //                     panelbody1.className = "panel-body";
+        //                     var panelgroup1 = document.createElement("div");
+        //                     panelgroup1.id = "nested1";
+        //                     panelgroup1.className = "panel-group";
+        //                     var paneldefault2 = document.createElement("div");
+        //                     paneldefault2.className = "panel panel-default";
+        //                     var panelheading2 = document.createElement("div");
+        //                     panelheading2.className = "panel-heading";
+        //                     var paneltitle2 = document.createElement("h4");
+        //                     paneltitle2.className = "panel-title";
+        //                     var collapsed2 = document.createElement("a");
+        //                     collapsed2.className = "collapsed";
+        //                     collapsed2.setAttribute("data-toggle", "collapse");
+        //                     collapsed2.setAttribute("data-parent", "#nested1");
+        //                     collapsed2.href = "#nested1-collapseOne";
+        //                     var secondlayername = document.createTextNode(clean2[index].SecondLayer);
+        //                     var panelbody2 = document.createElement("div");
+        //                     panelbody2.className = "panel-body";
+        //                     collapseone.appendChild(panelbody1);
+        //                     panelbody1.appendChild(panelgroup1);
+        //                     panelgroup1.appendChild(paneldefault2);
+        //                     paneldefault2.appendChild(panelheading2);
+        //                     panelheading2.appendChild(paneltitle2);
+        //                     collapsed2.appendChild(secondlayername);
+        //                     paneltitle2.appendChild(collapsed2);
+        //                     collapsed2.appendChild(panelbody2);
+        //                     paneldefault1.appendChild(collapseone);
+        //                     console.log(clean2[index].SecondLayer);
+        //                 }
+        //             });
+        //
+        //
+        //             // for(var a = 0; a < clean.length; a++) {
+        //             //     var paneldefault1 = document.createElement("div");
+        //             //     paneldefault1.className = "panel panel-default";
+        //             //     paneldefault1.id = "exam";
+        //             //     var panelheading1 = document.createElement("div");
+        //             //     panelheading1.className = "panel-heading";
+        //             //     var paneltitle1 = document.createElement("h4");
+        //             //     paneltitle1.className = "panel-title";
+        //             //     var collapsed1 = document.createElement("a");
+        //             //     collapsed1.className = "collapsed";
+        //             //     collapsed1.setAttribute("data-toggle", "collapse");
+        //             //     collapsed1.setAttribute("data-parent", "#nested1");
+        //             //     collapsed1.href = "#collapseOne";
+        //             //     var firstlayername = document.createTextNode(clean[a].FirstLayer);
+        //             //     collapsed1.appendChild(firstlayername);
+        //             //     paneltitle1.appendChild(collapsed1);
+        //             //     panelheading1.appendChild(paneltitle1);
+        //             //     paneldefault1.appendChild(panelheading1);///create layer name for first layer ....
+        //             //     parentmenu.appendChild(paneldefault1); //add first layer to main menu.
+        //             //
+        //             //     for(var b = 0; b < clean.length; b++) {
+        //             //         var collapseone = document.createElement("div");//secondlayer
+        //             //         collapseone.className = "panel-collapse collapse";
+        //             //         collapseone.id = "collapseOne";
+        //             //         var panelbody1 = document.createElement("div");
+        //             //         panelbody1.className = "panel-body";
+        //             //         var panelgroup1 = document.createElement("div");
+        //             //         panelgroup1.id = "nested1";
+        //             //         panelgroup1.className= "panel-group";
+        //             //         var paneldefault2 = document.createElement("div");
+        //             //         paneldefault2.className = "panel panel-default";
+        //             //         var panelheading2 = document.createElement("div");
+        //             //         panelheading2.className = "panel-heading";
+        //             //         var paneltitle2 = document.createElement("h4");
+        //             //         paneltitle2.className = "panel-title";
+        //             //         var collapsed2 = document.createElement("a");
+        //             //         collapsed2.className = "collapsed";
+        //             //         collapsed2.setAttribute("data-toggle", "collapse");
+        //             //         collapsed2.setAttribute("data-parent", "#nested1");
+        //             //         collapsed2.href = "#nested1-collapseOne";
+        //             //         var secondlayername = document.createTextNode(clean2[b].SecondLayer);
+        //             //         var panelbody2 = document.createElement("div");
+        //             //         panelbody2.className = "panel-body";
+        //             //         collapseone.appendChild(panelbody1);
+        //             //         panelbody1.appendChild(panelgroup1);
+        //             //         panelgroup1.appendChild(paneldefault2);
+        //             //         paneldefault2.appendChild(panelheading2);
+        //             //         panelheading2.appendChild(paneltitle2);
+        //             //         collapsed2.appendChild(secondlayername);
+        //             //         paneltitle2.appendChild(collapsed2);
+        //             //         collapsed2.appendChild(panelbody2);
+        //             //         paneldefault1.appendChild(collapseone);
+        //             //
+        //             //         for(var c = 0; c < clean4.length; c++) {
+        //             //             var checkboxdiv = document.createElement("div");
+        //             //             var checkboxh5 = document.createElement("h5");
+        //             //             var checkboxa = document.createElement("a");
+        //             //             var checkaboxat = document.createTextNode(clean3[c].ThirdLayer);
+        //             //             var checkboxlabel = document.createElement("label");
+        //             //             checkboxlabel.className = "switch right";
+        //             //             var checkboxinput = document.createElement("input");
+        //             //             checkboxinput.type = "checkbox";
+        //             //             checkboxinput.setAttribute("value", clean4[c].LayerName);
+        //             //             var checkboxspan = document.createElement("span");
+        //             //             checkboxspan.className = "slider round";
+        //             //             checkboxdiv.appendChild(checkboxh5);
+        //             //             checkboxa.appendChild(checkaboxat);
+        //             //             checkboxh5.appendChild(checkboxa);
+        //             //             checkboxh5.appendChild(checkboxlabel);
+        //             //             checkboxlabel.appendChild(checkboxinput);
+        //             //             checkboxlabel.appendChild(checkboxspan);
+        //             //             panelbody2.appendChild(checkboxdiv);
+        //             //
+        //             //
+        //             //
+        //             //
+        //             //         }
+        //             //
+        //             //
+        //             //
+        //             //     }
+        //             // }
+        //
+        //
+        //         },
+        //         error: function (jqXHR, exception) {
+        //             var msg = '';
+        //             if (jqXHR.status === 0) {
+        //                 msg = 'Not connect.\n Verify Network.';
+        //             } else if (jqXHR.status == 404) {
+        //                 msg = 'Requested page not found. [404]';
+        //             } else if (jqXHR.status == 500) {
+        //                 msg = 'Internal Server Error [500].';
+        //             } else if (exception === 'parsererror') {
+        //                 msg = 'Requested JSON parse failed.';
+        //             } else if (exception === 'timeout') {
+        //                 msg = 'Time out error.';
+        //             } else if (exception === 'abort') {
+        //                 msg = 'Ajax request aborted.';
+        //             } else {
+        //                 msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        //             }
+        //             alert(msg);
+        //
+        //         }
+        //     });
+        // });
     </script>
+    <style>
+
+
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+    </style>
+    <!--<style>-->
+        .popup-group {
+        /*position: absolute;*/
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(220, 220, 220, 0.51);
+        display: none
+    }
+    .popupBoxWrapper{
+        max-width: calc(60%); width: 100%; margin: 10% auto;
+        text-align: left; max-height: calc(80%); overflow: auto; z-index: 1
+    }
+    .popupBoxContent{
+        background-color: #FFF; padding: 15px; overflow: scroll;
+    }
+    .popup-Header {
+        padding: 10px 16px;
+        background-color: #75b6cc;
+        color: white;
+    }
+    .close {
+        color: red;
+        float: right;
+        font-size: 38px;
+        font-weight: bold;
+    }
+        .popup-Body {padding: 2px 16px;}
+
+        .popup-Footer {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+        .popup-Footer {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+    <!--</style>-->
 </head>
 <body>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <p>Some text in the Modal..</p>
+    </div>
+
+</div>
 <div class="container">
     <div>
         <img src="../images/TL_WB_Banner.jpg" align="middle" alt="Placeholder Image" />
@@ -647,7 +730,7 @@
                                                     <h5>
                                                         <a>-KHS Wind Turbine</a>
                                                         <label class="switch right">
-                                                            <input class="wmsLayer" type="checkbox" >
+                                                            <input class="placemarkLayer" type="checkbox" value = "KHS_Turbine" >
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -657,7 +740,7 @@
                                                     <h5>
                                                         <a>-KEA Wind Turbine</a>
                                                         <label class="switch right">
-                                                            <input class="wmsLayer" type="checkbox" 5>
+                                                            <input class="placemarkLayer" type="checkbox" value = "KEA_Turbine" >
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -794,7 +877,7 @@
                                                     <h5>
                                                         <a>-Tuluksak Energy Budget</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "AWB_Tuluksak_Project_Site" >
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -889,7 +972,7 @@
                                                     <h5>
                                                         <a>-Kodiak's Alaska Pacific Seafoods</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox" class="wmsLayer" value = "City_Smart:Polygon_WMS_Kodiak_Trident">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Alaska_Pacific_Seafoods">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -899,7 +982,7 @@
                                                     <h5>
                                                         <a>-Kodiak's International Seafoods of Alaska</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_International_Seafoods_of_Alaska">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -909,7 +992,7 @@
                                                     <h5>
                                                         <a>-Kodiak's Ocean Beauty Seafoods</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Ocean_Beauty_Seafoods">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -956,7 +1039,7 @@
                                                     <h5>
                                                         <a>-FTAA Water Tests</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = placemarkLayer type="checkbox" value = >
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1028,7 +1111,7 @@
                                                     <h5>
                                                         <a>-Bear Valley Golf Course</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Bear_Valley_Golf_Course">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1077,7 +1160,7 @@
                                                     <h5>
                                                         <a>-Kodiak Benny Benson State Airport</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Benny_Benson_State_Airport">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1087,7 +1170,7 @@
                                                     <h5>
                                                         <a>-Kodiak Municipal Airport</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Municipal_Airport">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1110,7 +1193,7 @@
                                                     <h5>
                                                         <a>-Budget Rent-a-Car</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type ="checkbox" value = "Kodiak_Budget_Rent_A_Car">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1133,7 +1216,7 @@
                                                     <h5>
                                                         <a>-St.Paul Harbor</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_St_Paul_Harbor">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1144,7 +1227,7 @@
                                                     <h5>
                                                         <a>-St.Herman Harbor</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_St_Herman_Harbor">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1165,9 +1248,9 @@
                                             <div class="panel-body">
                                                 <div class="Menu AK">
                                                     <h5>
-                                                        <a>-Kodiak's Pier One</a>
+                                                        <a>-Kodiak Pier One</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Pier_One" >
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1175,9 +1258,9 @@
 
                                                 <div class="Menu AK">
                                                     <h5>
-                                                        <a>-Kodiak's Pier Two</a>
+                                                        <a>-Kodiak Pier Two</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Pier_Two">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1283,7 +1366,7 @@
                                                     <h5>
                                                         <a>-Kodiak Wells Fargo</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value ="Kodiak_Wells_Fargo">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1291,9 +1374,9 @@
 
                                                 <div class="Menu AK">
                                                     <h5>
-                                                        <a>-Kodiak First National</a>
+                                                        <a>-Kodiak First National Bank</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_First_National">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1303,7 +1386,7 @@
                                                     <h5>
                                                         <a>-Kodiak Key Bank</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Key_Bank">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1313,7 +1396,7 @@
                                                     <h5>
                                                         <a>-Kodiak Credit Union</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Credit_Union">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1336,7 +1419,7 @@
                                                     <h5>
                                                         <a>-Kodiak Post Office</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Post_Office">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1385,7 +1468,7 @@
                                                     <h5>
                                                         <a>-Providence Kodiak Island Medical Center</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Island_Providence_Medical_Center">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1395,7 +1478,7 @@
                                                     <h5>
                                                         <a>-KIMA</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_KIMA">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1405,7 +1488,7 @@
                                                     <h5>
                                                         <a>-Kodiak Care Clinic</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Care_Clinic">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1428,7 +1511,7 @@
                                                     <h5>
                                                         <a>-Kodiak Public Health Center</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Public_Health_Center">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1438,7 +1521,7 @@
                                                     <h5>
                                                         <a>-Mill Bay Health Center</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Mill_Bay_Health_Center">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1461,7 +1544,7 @@
                                                     <h5>
                                                         <a>-Kodiak Veterinary Clinic</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Veterinary_Clinic">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1484,7 +1567,7 @@
                                                     <h5>
                                                         <a>-Kodiak Vision Clinic</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = placemarkLayer" type="checkbox" value = "Kodiak_Vision_Clinic">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1494,7 +1577,7 @@
                                                     <h5>
                                                         <a>-Kodiak Vision Source</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Vision_Source_Eyecare_Excellence">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1543,7 +1626,7 @@
                                                     <h5>
                                                         <a>-Kodiak City Fire Department</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_City_Fire_Department">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1553,7 +1636,7 @@
                                                     <h5>
                                                         <a>-Bayside Volunteer Fire Department</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Bayside_Volunteer_Fire_Department">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1563,7 +1646,7 @@
                                                     <h5>
                                                         <a>-Base Fire Department</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Base_Fire_Department">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1586,7 +1669,7 @@
                                                     <h5>
                                                         <a>-Kodiak Police Department</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Police_Department">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1658,7 +1741,7 @@
                                                     <h5>
                                                         <a>-USA A World Bridge</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "A_World_Bridge">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1681,7 +1764,7 @@
                                                     <h5>
                                                         <a>-Fei Tian UNESCO Prototype</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input type="checkbox" >
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1702,9 +1785,9 @@
                                             <div class="panel-body">
                                                 <div class="Menu NY">
                                                     <h5>
-                                                        <a>-Fei Tian Academy of the Arts</a>
+                                                        <a>-Northern Academy of the Arts</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "AWB_Middletown_Project_Site">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1727,7 +1810,7 @@
                                                     <h5>
                                                         <a>-Fei Tian College</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input  type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1737,7 +1820,7 @@
                                                     <h5>
                                                         <a>-Kodiak Community College</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Community_College">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1760,7 +1843,7 @@
                                                     <h5>
                                                         <a>-Alutiq Museum</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Alutiq_Museum">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1768,9 +1851,9 @@
 
                                                 <div class="Menu AK">
                                                     <h5>
-                                                        <a>-baranov Museum</a>
+                                                        <a>-Baranov Museum</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Baranov_Museum">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1787,13 +1870,13 @@
                                                 </a>
                                             </h4>
                                         </div><!--/.panel-heading -->
-                                        <div id="nested8-collapseSix" class="panel-collapse collapse">
+                                        <div id="nested8-collapseSix" class="panel-collapse collaps1 e">
                                             <div class="panel-body">
                                                 <div class="Menu AK">
                                                     <h5>
-                                                        <a>-Kodiak Community Libarary</a>
+                                                        <a>-Kodiak Community Library</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Public_Library">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1816,7 +1899,7 @@
                                                     <h5>
                                                         <a>-North Star Elementary</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_North_Star_Elementary">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1826,7 +1909,7 @@
                                                     <h5>
                                                         <a>-Main Elementary</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Main_Elementary">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1836,7 +1919,7 @@
                                                     <h5>
                                                         <a>-East Elementary</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_East_Elementary">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1846,7 +1929,7 @@
                                                     <h5>
                                                         <a>-Peterson Elementary</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Peterson_Elementary">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1869,7 +1952,7 @@
                                                     <h5>
                                                         <a>-Kodiak Middle School</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_Middle_School">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1892,7 +1975,7 @@
                                                     <h5>
                                                         <a>-Kodiak High School</a>
                                                         <label class="switch right">
-                                                            <input type="checkbox">
+                                                            <input class = "placemarkLayer" type="checkbox" value = "Kodiak_High_School">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </h5>
@@ -1913,17 +1996,34 @@
                      <!-- /.panel-group -->
         </div>
 
+                <div class="col-sm-9" id="globe">
+                    <canvas id="canvasOne" width="1000" height="1000" style="width: 100%; height: auto">
+                        Your browser does not support HTML5 Canvas.
+                    </canvas>
+                </div>
                 </div><!-- /.panel-group -->
+            <div class="popup-group" id="popupBox">
+                <div class="popupBoxWrapper">
+                    <div class="popupBoxContent">
+                        <!-- Popup Box Header-->
+                        <div class="popup-Header">
+                            <span class="close" id="closeIt">&times;</span>
+                        </div>
+                        <!-- Popup Box Body-->
+                        <div class="popup-Body" id="popupBody">
+                        </div>
+                        <!-- Popup Box Footer-->
+                        <div class="popup-Footer">
+                        </div>
+                    </div>
+                </div>
 
         </div>
-
-    <div class="col-sm-9" id="globe">
-        <canvas id="canvasOne" width="1000" height="1000" style="width: 100%; height: auto;">
-            Your browser does not support HTML5 Canvas.
-        </canvas>
+        </div>
     </div>
+</div>
 
-</div>
-</div>
+
+
 </body>
 </html>
