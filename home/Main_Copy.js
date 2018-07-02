@@ -115,82 +115,130 @@ requirejs(['./WorldWindShim',
         // var globe = new WorldWind.WorldWindow("canvasOne");
         //
         // var LayerInfoGlobal = [];
-        var LayerInfo = [];
-        var laname;
-        // var CoordinateLatInfo = [];
-        // var CoordinateLongInfo = [];
+
+        // All the Global Variables
+        var laname,
+            j,
+            loca,
+            locat,
+            col,
+            colo;
+
+        var LayerInfo = [], CoordinateLatInfo = [], CoordinateLongInfo = [];
 
         //This wmsLayer used to be switch_right but it's different on this project so I changed it
         $('.switch_right').click(function() {
-            var SelectedLayers = [];
             var CurrentToggleVal = $(this).val();
-            var loca;
-            var locat;
+            console.log("Initial:" + layers.length);
+            // console.log (layers);
+            // console.log ("last displayN: " + layers[layers.length-1].displayName);
 
-            if ($('.switch_right').is(":checkbox:checked")) {
+            for (var b = 0; b < layers.length; b++) {
+                // console.log("Current Toggle: " + CurrentToggleVal);
+                // console.log ("layer [" + b + "]: " + layers[b].displayName);
+                if (layers[b].displayName === CurrentToggleVal) {
+                    console.log($(':checkbox:checked').length);
+                    if ($(':checkbox:checked').length !== 0) {
+                        console.log("a");
+                        $(':checkbox:checked').each(function (i){
+                            // console.log ("[" + i + "]: "+ $(this).val());
+                            if ($(this).val() === CurrentToggleVal) {
+                                console.log ("True");
+                                layers[b].enabled = true;
+                                return false
+                            } else {
+                                if (i === $(':checkbox:checked').length -1) {
+                                    console.log ("False");
+                                    layers[b].enabled = false;
+                                }
+                            }
 
-                $(':checkbox:checked').each(function () {
-                    // alert(CurrentToggleVal);
-                    SelectedLayers.push(CurrentToggleVal);
-                    for (var b = 0; b < layers.length; b++) {
-                        if (layers[b].displayName === CurrentToggleVal) {
-                            layers[b].enabled = true;
-                        }
+                        });
+                        break
+
+                    } else {
+                        console.log ("False 0");
+                        layers[b].enabled = false;
+                        break
                     }
-                });
-            } else  if ($('.switch_right').is(":not(:checked)")) {
+                } else {
+                    if (b === layers.length - 1) {
+                        console.log("new");
+                        $.getJSON("LayerNCC.json", function (layer) {
+                            for (j = 0; j < layer.length; j++) {
 
-                $(':checkbox:not(:checked)').each(function () {
+                                if (CurrentToggleVal === layer[j].Layer_Name) {
+                                    LayerInfo.push(layer[j]);
+                                    loca = layer[j].Latitude_and_Longitude_Decimal;
+                                    locat = loca.split(",");
+                                    col = layer[j].Color;
+                                    colo = col.split(" ");
+                                    laname = layer[j].Layer_Name;
+                                    CreatePlacemarkLayer(locat, colo, laname);
+                                    console.log("Ending Loop:" + layers.length);
+                                    // console.log ("displayN last: " + layers[layers.length-1].displayName);
 
-                    // console.log("Jesse likes hotdogs");
-                    // CreatePlacemarkLayer.enabled = false;
-                    // LayerInfo.remove(CurrentToggleVal);
-                    // console.log(CreatePlacemarkLayer.enabled);
-                    // delete layers[CreatePlacemarkLayer];
-                    // console.log(CurrentToggleVal);
-                    // var removeThings = remove(layers, CurrentToggleVal);
-                    // removeThings.enabled = true;
-                    // console.log(removeThings);
-                    for (var t = 0; t < layers.length; t++) {
-                        if (layers[t].displayName === CurrentToggleVal) {
-                            layers[t].enabled = false;
-                        }
-                    }
-                });
-            }
-
-            $.getJSON( "LayerNCC.json", function (layer) {
-                // console.log (SelectedLayers.length);
-                for (var i = 0; i < SelectedLayers.length; i++) {
-                    for (var j = 0; j < layer.length; j++) {
-                        if (SelectedLayers[i] === layer[j].Layer_Name) {
-                            // console.log(SelectedLayers[i]);
-                            LayerInfo.push(layer[j]);
-                            loca = layer[j].Latitude_and_Longitude_Decimal;
-                            locat = loca.split (",");
-                            var col = layer[j].Color;
-                            var colo = col.split(" ");
-                            laname = layer[j].Layer_Name;
-                            console.log(laname);
-                            CreatePlacemarkLayer(locat, colo, laname);
-                        }
+                                }
+                            }
+                        });
                     }
                 }
-            });
-            console.log(LayerInfo);
+            }
 
+            // for (var b = 0; b < layers.length; b++) {
+            //     if ($('.switch_right').is(":checkbox:checked")) {
+            //         console.log("yes");
+            //         SelectedLayers.push(CurrentToggleVal);
+            //         console.log(SelectedLayers);
+            //         for (var t = 0; t < SelectedLayers.length; t++) {
+            //             for (var b = 0; b < layers.length; b++) {
+            //                 if (layers[b].displayName === SelectedLayers[t]) {
+            //                     layers[b].enabled = true;
+            //                 }
+            //             }
+            //         }
+            //     } else if ($('.switch_right').is(":not(:checked)")) {
+            //
+            //         $(':checkbox:not(:checked)').each(function () {
+            //             SelectedLayers.forEach(function (value, index) {
+            //                 if (value === CurrentToggleVal) {
+            //                     SelectedLayers.splice(index, 1);
+            //                 }
+            //             });
+            //             console.log("Jesse likes hotdogs");
+            //             delete SelectedLayers[CurrentToggleVal];
+            //             console.log(SelectedLayers);
+            //             for (var t = 0; t < layers.length; t++) {
+            //                 if (layers[t].displayName === CurrentToggleVal) {
+            //                     layers[t].enabled = false;
+            //                 }
+            //             }
+            //         });
+            //     }
+            //     if (layers[t].displayName !== CurrentToggleVal) {
+            //         $.getJSON("LayerNCC.json", function (layer) {
+            //             // console.log (SelectedLayers.length);
+            //             for (i = 0; i < SelectedLayers.length; i++) {
+            //                 for (j = 0; j < layer.length; j++) {
+            //                     if (SelectedLayers[i] === layer[j].Layer_Name) {
+            //                         // console.log(SelectedLayers[i]);
+            //                         LayerInfo.push(layer[j]);
+            //                         loca = layer[j].Latitude_and_Longitude_Decimal;
+            //                         locat = loca.split(",");
+            //                         col = layer[j].Color;
+            //                         colo = col.split(" ");
+            //                         laname = layer[j].Layer_Name;
+            //                         // console.log(laname);
+            //                         CreatePlacemarkLayer(locat, colo, laname);
+            //                     }
+            //                 }
+            //             }
+            //         });
+            //         // console.log(LayerInfo);
+            //         // console.log(SelectedLayers);
+            //     }
+            // }
         });
-
-        // for (var j = 0; j < LayerInfo.length; j++) {
-        //         console.log("10");
-        //         if (j < LayerInfo.length) {
-        //             globe.layer.push();
-        //             globe.layer.enabled = true;
-        //             // console.log(globe.layers.enabled);
-        //             // console.log(CreatePlacemarkLayer.enabled = true);
-        //         }
-        //     }
-        // console.log(globe.layers);
 
         //This is creating the placemark layer and to connect the placemark to the switch
         var CreatePlacemarkLayer = function (location, pcolor, lname) {
@@ -252,8 +300,8 @@ requirejs(['./WorldWindShim',
 
             // console.log(placemark.position.latitude);
             // console.log(placemark.position.longitude);
-            // CoordinateLatInfo.push(placemark.position.latitude);
-            // CoordinateLongInfo.push(placemark.position.longitude);
+            CoordinateLatInfo.push(placemark.position.latitude);
+            CoordinateLongInfo.push(placemark.position.longitude);
         };
 
         // Create a layer manager for controlling layer visibility.
@@ -262,6 +310,67 @@ requirejs(['./WorldWindShim',
         // Now set up to handle highlighting.
         var highlightController = new WorldWind.HighlightController(globe);
 
+        var sitePopUp = function(jsonobj) {
+            var sitename, sitedesc, picpath, siteurl;
+            // var popupBodyItem, popupBodyName, popupBodyDesc, popupBodyImg, popupBodyURL;
+
+            // $.getJSON(popupjsonpath, function (res) {
+            //     //Get site information.
+            //     for (var n = 0; n < res.length; n++) {
+            //         if (res[n].SiteID === siteid) {
+            //             sitename = res[n].SiteName;
+            //             picpath = res[n].PicPath;
+            //             sitedesc = res[n].SiteDescription;
+            //             siteurl = res[n].SiteURL;
+            //             break;
+            //         }
+            //     }
+            //
+            // $.getJSON( "LayerNCC.json", function (jasn) {
+            //             //     for (var n = 0; n < SelectedLayers.length; n++) {
+            //             //         // if (n < SelectedLayers.length) {
+            //             //         sitename = jasn[n].Site_Name;
+            //             //         picpath = jasn[n].Picture_Location;
+            //             //         sitedesc = jasn[n].Site_Description;
+            //             //         siteurl = jasn[n].Link_to_site_Location;
+            //             //         break;
+            //             //         // }
+            //             //     }
+            //             // });
+            // $.getJSON( "LayerNCC.json", function (jason) {  });
+            // var lat = jsonobj.latitude;
+            // var long = jsonobj.longitude;
+            var latlong = jsonobj.latitude + "," + jsonobj.longitude;
+            // console.log (loca);
+
+            for (var z = 0; z < LayerInfo.length; z++) {
+
+                if (loca === latlong) {
+                    sitename = LayerInfo[z].Site_Name;
+                    picpath = "../images/Placemark_Images/" + LayerInfo[z].Picture_Location;
+                    sitedesc = LayerInfo[z].Site_Description;
+                    siteurl = LayerInfo[z].Link_to_site_Location;
+                    // console.log(picpath);
+                    break;
+                }
+            }
+
+
+            //Insert site information into indexTest.html.
+            var popupBodyItem = $("#modalBody");
+            popupBodyItem.children().remove();
+
+            var popupBodyName = $('<p class="site-name"><h4>' + sitename + '</h4></p>');
+            var popupBodyDesc = $('<p class="site-description">' + sitedesc + '</p><br>');
+            var popupBodyImg = $('<img class="site-img" src="' + picpath + '" width=100% height=auto /><br>');
+            var popupBodyURL = $('<p class="site-URL">Please click <a href="' + siteurl + '" target="_blank"><span id="href"><b>here</b></span></a> for more detailed information</p>');
+
+            popupBodyItem.append(popupBodyName);
+            popupBodyItem.append(popupBodyDesc);
+            popupBodyItem.append(popupBodyImg);
+            popupBodyItem.append(popupBodyURL);
+
+        };
 
         var handleMouseCLK = function (o) {
 
@@ -278,10 +387,10 @@ requirejs(['./WorldWindShim',
             // console.log(pickList.objects[0]);
             for (var q = 0; q < pickList.objects.length; q++) {
                 var pickedPL = pickList.objects[q].userObject;
-                // console.log (pickedPL);
+                console.log (pickedPL);
                 if (pickedPL instanceof WorldWind.Placemark) {
-
-                    //sitePopUp(pickedPL.label);
+                    console.log (pickedPL.position.latitude);
+                    sitePopUp(pickedPL.position);
                     //alert("It Worked");
 
                     $(document).ready(function () {
@@ -293,16 +402,16 @@ requirejs(['./WorldWindShim',
                         // var btn = document.getElementById("myBtn");
                         //
                         // Get the <span> element that closes the modal
-                        // var span = document.getElementsByClassName("close");
-                        // Don't need it
-                        // When the user clicks on <span> (x), close the modal
-                        //                         span.onclick = function() {
-                        //                             modal.style.display = "none";
-                        //                         }; I don't need span
-                        //
+                        var span = document.getElementsByClassName("close")[0];
+
                         // When the user clicks the button, open the modal
 
                         modal.style.display = "block";
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                            modal.style.display = "none";
+                        };
 
                         // When the user clicks anywhere outside of the modal, close it
                         window.onclick = function(event) {
