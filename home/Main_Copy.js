@@ -431,3 +431,4 @@ requirejs(['./WorldWindShim',
         var tapRecognizer = new WorldWind.TapRecognizer(globe, handleMouseCLK);
 
     });
+
