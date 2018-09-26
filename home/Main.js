@@ -85,7 +85,7 @@ requirejs(['./WorldWindShim',
             // Create a WmsCapabilities object from the XML DOM
             var wms = new WorldWind.WmsCapabilities(xmlDom);
             // Retrieve a WmsLayerCapabilities object by the desired layer name
-            for (var n = 22; n < layerName.length; n++) {
+            for (var n = 0; n < layerName.length; n++) {
                 var wmsLayerCapabilities = wms.getNamedLayer(layerName[n]);
                 // wmsLayerCapabilities.title = layerName[n];
                 // Form a configuration object from the WmsLayerCapability object
@@ -97,7 +97,7 @@ requirejs(['./WorldWindShim',
                 var wmsLayer = new WorldWind.WmsLayer(wmsConfig);
                 // // Add the layers to WorldWind and update the layer manager
                 globe.addLayer(wmsLayer);
-                // layerManager.synchronizeLayerList();
+                layerManager.synchronizeLayerList();
             }
         };
 
